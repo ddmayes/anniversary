@@ -1,0 +1,95 @@
+
+const slides = document.querySelectorAll(".slide");
+
+let currentSlide = 0;
+let isAnimating = false;
+
+const ANIMATION_DURATION = 800;
+const WHEEL_THRESHOLD = 30;
+
+// Initialize: explicitly hide every slide except the first
+slides.forEach((slide, index) => {
+    slide.classList.toggle("active", index === 0);
+});
+
+// Navigate between slides
+function goToSlide(index) {
+    if (isAnimating) return;
+
+    index = Math.max(0, Math.min(index, slides.length - 1));
+
+    if (index === currentSlide) return;
+
+    isAnimating = true;
+
+    slides[currentSlide].classList.remove("active");
+
+    currentSlide = index;
+
+    slides[currentSlide].classList.add("active");
+
+    setTimeout(() => {
+        isAnimating = false;
+    }, ANIMATION_DURATION);
+}
+
+
+// DESKTOP: Mouse wheel navigation
+let wheelAccumulator = 0;
+
+window.addEventListener("wheel", (event) => {
+    
+    console.log("WHEEL DETECTED");
+    event.preventDefault();
+
+    if (isAnimating) return;
+
+    wheelAccumulator += event.deltaY;
+
+    if (wheelAccumulator > WHEEL_THRESHOLD) {
+        goToSlide(currentSlide + 1);
+        wheelAccumulator = 0;
+    }
+
+    else if (wheelAccumulator < -WHEEL_THRESHOLD) {
+        goToSlide(currentSlide - 1);
+        wheelAccumulator = 0;
+    }
+
+}, { passive: false });
+
+
+// MOBILE: Swipe navigation
+let touchStartY = 0;
+
+window.addEventListener("touchstart", (event) => {
+    touchStartY = event.touches[0].clientY;
+}, { passive: true });
+
+window.addEventListener("touchend", (event) => {
+    const touchEndY = event.changedTouches[0].clientY;
+    const difference = touchStartY - touchEndY;
+
+    if (Math.abs(difference) < 50) return;
+
+    if (difference > 0) {
+        goToSlide(currentSlide + 1);
+    } else {
+        goToSlide(currentSlide - 1);
+    }
+}, { passive: true });
+
+
+// KEYBOARD: Arrow keys
+window.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowDown" || event.key === " ") {
+        event.preventDefault();
+        goToSlide(currentSlide + 1);
+    }
+
+    if (event.key === "ArrowUp") {
+        event.preventDefault();
+        goToSlide(currentSlide - 1);
+    }
+});
+

@@ -1,0 +1,264 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Montserrat:wght@300;400&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+}
+
+body {
+    font-family: 'Cormorant Garamond', serif;
+    color: #79545a;
+    background-color: #fff9f5;
+
+    background-image:
+        radial-gradient(ellipse at 10% 15%, rgba(255, 190, 190, 0.35), transparent 45%),
+        radial-gradient(ellipse at 90% 45%, rgba(255, 218, 190, 0.4), transparent 45%),
+        radial-gradient(ellipse at 40% 90%, rgba(246, 205, 220, 0.35), transparent 50%),
+        radial-gradient(rgba(180, 130, 130, 0.12) 0.7px, transparent 0.7px);
+
+    background-size:
+        100% 100%,
+        100% 100%,
+        100% 100%,
+        22px 22px;
+
+    background-attachment: fixed;
+}
+
+#presentation {
+    width: 100%;
+}
+
+.slide {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    padding: 30px;
+}
+
+/* TITLE PAGE */
+
+.splash {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    isolation: isolate;
+    gap: 0;
+}
+
+.splash::before {
+    content: "";
+    position: absolute;
+    inset: 35px;
+    border: 1px solid rgba(180, 130, 130, 0.3);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.splash::after {
+    content: "♡";
+    position: absolute;
+    top: 12%;
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    color: #c18b91;
+    opacity: 0.8;
+    animation: heartFloat 4s ease-in-out infinite;
+    z-index: -1;
+}
+
+.splash h1 {
+    max-width: 950px;
+    padding: 0 20px;
+
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(4.5rem, 11vw, 9rem);
+    font-weight: normal;
+    line-height: 1.2;
+
+    color: #80565f;
+    animation: titleAppear 1.4s ease both;
+}
+
+.splash h2 {
+    margin-top: 0;
+
+    font-family: 'Great Vibes', cursive;
+    font-weight: normal;
+    font-size: clamp(5rem, 13vw, 10rem);
+    line-height: 1.1;
+
+    color: #c17d8a;
+    animation: titleAppear 1.5s ease 0.25s both;
+}
+
+.splash p {
+    margin-top: 28px;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+
+    color: #a47b7c;
+    animation: titleAppear 1.4s ease 0.5s both;
+}
+
+.scroll-hint {
+    position: absolute;
+    bottom: 9%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+
+    border: 1px solid rgba(180, 115, 125, 0.4);
+    border-radius: 50%;
+
+    color: #b77c84;
+    font-size: 1.5rem;
+
+    animation: scrollBounce 2s ease-in-out infinite;
+}
+
+/* MEMORY SLIDES */
+
+.memory {
+    gap: 28px;
+}
+
+.memory img {
+    max-width: 85vw;
+    max-height: 65vh;
+    object-fit: contain;
+}
+
+/* CAPTIONS */
+
+.caption {
+    text-align: center;
+    max-width: 700px;
+    padding: 0 15px;
+}
+
+.caption .date {
+    display: block;
+    margin-bottom: 10px;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 300;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+
+    color: #b18a89;
+}
+
+.caption h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: normal;
+    line-height: 1.2;
+
+    color: #80565f;
+}
+
+.caption p {
+    margin-top: 8px;
+
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    line-height: 1.5;
+
+    color: #8d7271;
+}
+
+/* ANIMATIONS */
+
+@keyframes titleAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heartFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-9px);
+    }
+}
+
+@keyframes scrollBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(8px);
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+    .splash::before {
+        inset: 18px;
+    }
+
+    .splash h1 {
+        font-size: clamp(4rem, 16vw, 6rem);
+    }
+
+    .splash h2 {
+        font-size: clamp(5rem, 20vw, 7rem);
+    }
+
+    .splash p {
+        font-size: 0.6rem;
+        letter-spacing: 3px;
+    }
+
+    .memory img {
+        max-width: 92vw;
+        max-height: 60vh;
+    }
+
+    .caption h2 {
+        font-size: 3.3rem;
+    }
+
+    .caption p {
+        font-size: 1.2rem;
+    }
+}
+
