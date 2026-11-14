@@ -222,24 +222,23 @@ body::before {
 
 /* INTERACTIVE MEMORY QUIZ */
 
+/* QUIZ MEMORY */
+
 .memory:has(.memory-quiz) {
     min-height: 100vh;
     min-height: 100svh;
     height: auto;
-    justify-content: flex-start;
-    padding-top: 30px;
+    justify-content: center;
+    padding-top: 40px;
     padding-bottom: 40px;
-    gap: 14px;
+    gap: 20px;
 }
 
+/* Keep image the same size as other memories */
 .memory:has(.memory-quiz) img {
-    max-height: 32vh;
-    max-height: 32svh;
+    max-height: 65vh;
+    max-height: 65svh;
     max-width: 85vw;
-}
-
-.memory:has(.memory-quiz) .caption {
-    flex-shrink: 0;
 }
 
 .memory-quiz {
@@ -250,23 +249,17 @@ body::before {
     gap: 10px;
     margin: 8px auto 0;
     flex-shrink: 0;
-    align-self: center;
 }
 
 .memory-quiz label {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
     gap: 14px;
     width: 100%;
-    flex-shrink: 0;
     padding: 12px 16px;
-
     border: 1px solid rgba(180, 130, 130, 0.3);
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.5);
-
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.3rem;
     line-height: 1.2;
@@ -279,39 +272,30 @@ body::before {
     border-color: #bd818b;
 }
 
-.memory-quiz input {
-    appearance: none;
-    -webkit-appearance: none;
-    flex-shrink: 0;
-    width: 19px;
-    height: 19px;
-    border: 1px solid #bd818b;
-    border-radius: 4px;
-    background: #fffaf8;
-    cursor: pointer;
-}
+/* Keep your existing input and quiz-message styles */
 
-.memory-quiz input:checked {
-    background: #bd818b;
-    border-color: #bd818b;
-}
+/* MOBILE */
+@media (max-width: 600px) {
+    .memory:has(.memory-quiz) {
+        padding: 30px 18px 40px;
+        gap: 16px;
+    }
 
-.memory-quiz input:checked::after {
-    content: "✓";
-    display: block;
-    color: white;
-    font-size: 14px;
-    text-align: center;
-    line-height: 18px;
-}
+    .memory:has(.memory-quiz) img {
+        max-height: 52svh;
+        max-width: 92vw;
+    }
 
-.quiz-message {
-    width: 100%;
-    text-align: center;
-    margin-top: 8px;
-    font-family: 'Great Vibes', cursive;
-    font-size: 2rem;
-    color: #bd818b;
+    .memory-quiz {
+        width: 100%;
+        gap: 8px;
+    }
+
+    .memory-quiz label {
+        font-size: 1.12rem;
+        padding: 10px 12px;
+        gap: 11px;
+    }
 }
 
 /* MOBILE */
