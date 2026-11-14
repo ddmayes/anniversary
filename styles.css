@@ -227,9 +227,8 @@ body::before {
 }
 
 .memory:has(.memory-quiz) img {
-    max-height: 65vh;
-    max-height: 65svh;
-    max-width: 85vw;
+    max-height: 52svh;
+    max-width: 92vw;
 }
 
 .memory-quiz {
