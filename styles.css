@@ -9,7 +9,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
     overflow-y: scroll;
 }
 
@@ -17,7 +17,19 @@ body {
     font-family: 'Cormorant Garamond', serif;
     color: #79545a;
     background-color: #fff9f5;
+    min-height: 100%;
+}
 
+/* BACKGROUND */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    background-color: #fff9f5;
     background-image:
         radial-gradient(ellipse at 10% 15%, rgba(255, 190, 190, 0.35), transparent 45%),
         radial-gradient(ellipse at 90% 45%, rgba(255, 218, 190, 0.4), transparent 45%),
@@ -29,8 +41,6 @@ body {
         100% 100%,
         100% 100%,
         22px 22px;
-
-    background-attachment: fixed;
 }
 
 #presentation {
@@ -48,7 +58,6 @@ body {
     align-items: center;
 
     scroll-snap-align: start;
-    scroll-snap-stop: always;
     padding: 30px;
 }
 
@@ -86,37 +95,31 @@ body {
 .splash h1 {
     max-width: 950px;
     padding: 0 20px;
-
     font-family: 'Great Vibes', cursive;
     font-size: clamp(4.5rem, 11vw, 9rem);
     font-weight: normal;
     line-height: 1.2;
-
     color: #80565f;
     animation: titleAppear 1.4s ease both;
 }
 
 .splash h2 {
     margin-top: 0;
-
     font-family: 'Great Vibes', cursive;
     font-weight: normal;
     font-size: clamp(5rem, 13vw, 10rem);
     line-height: 1.1;
-
     color: #c17d8a;
     animation: titleAppear 1.5s ease 0.25s both;
 }
 
 .splash p {
     margin-top: 28px;
-
     font-family: 'Montserrat', sans-serif;
     font-size: 0.7rem;
     font-weight: 300;
     letter-spacing: 5px;
     text-transform: uppercase;
-
     color: #a47b7c;
     animation: titleAppear 1.4s ease 0.5s both;
 }
@@ -124,20 +127,15 @@ body {
 .scroll-hint {
     position: absolute;
     bottom: 9%;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 48px;
     height: 48px;
-
     border: 1px solid rgba(180, 115, 125, 0.4);
     border-radius: 50%;
-
     color: #b77c84;
     font-size: 1.5rem;
-
     animation: scrollBounce 2s ease-in-out infinite;
 }
 
@@ -148,8 +146,10 @@ body {
 }
 
 .memory img {
+    display: block;
     max-width: 85vw;
     max-height: 65vh;
+    max-height: 65svh;
     object-fit: contain;
 }
 
@@ -164,13 +164,11 @@ body {
 .caption .date {
     display: block;
     margin-bottom: 10px;
-
     font-family: 'Montserrat', sans-serif;
     font-size: 0.68rem;
     font-weight: 300;
     letter-spacing: 4px;
     text-transform: uppercase;
-
     color: #b18a89;
 }
 
@@ -179,18 +177,15 @@ body {
     font-size: clamp(3rem, 6vw, 4.5rem);
     font-weight: normal;
     line-height: 1.2;
-
     color: #80565f;
 }
 
 .caption p {
     margin-top: 8px;
-
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.35rem;
     font-style: italic;
     line-height: 1.5;
-
     color: #8d7271;
 }
 
@@ -201,7 +196,6 @@ body {
         opacity: 0;
         transform: translateY(20px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -212,7 +206,6 @@ body {
     0%, 100% {
         transform: translateY(0);
     }
-
     50% {
         transform: translateY(-9px);
     }
@@ -222,56 +215,31 @@ body {
     0%, 100% {
         transform: translateY(0);
     }
-
     50% {
         transform: translateY(8px);
     }
 }
 
-/* MOBILE */
-
-@media (max-width: 600px) {
-    .splash::before {
-        inset: 18px;
-    }
-
-    .splash h1 {
-        font-size: clamp(4rem, 16vw, 6rem);
-    }
-
-    .splash h2 {
-        font-size: clamp(5rem, 20vw, 7rem);
-    }
-
-    .splash p {
-        font-size: 0.6rem;
-        letter-spacing: 3px;
-    }
-
-    .memory img {
-        max-width: 92vw;
-        max-height: 60vh;
-    }
-
-    .caption h2 {
-        font-size: 3.3rem;
-    }
-
-    .caption p {
-        font-size: 1.2rem;
-    }
-}
-
-/* INTERACTIVE MEMORY QUIZ */
-
-
 /* INTERACTIVE MEMORY QUIZ */
 
 .memory:has(.memory-quiz) {
     min-height: 100vh;
+    min-height: 100svh;
     height: auto;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    justify-content: flex-start;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    gap: 14px;
+}
+
+.memory:has(.memory-quiz) img {
+    max-height: 32vh;
+    max-height: 32svh;
+    max-width: 85vw;
+}
+
+.memory:has(.memory-quiz) .caption {
+    flex-shrink: 0;
 }
 
 .memory-quiz {
@@ -279,8 +247,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 14px;
-    margin: 15px auto 0;
+    gap: 10px;
+    margin: 8px auto 0;
     flex-shrink: 0;
     align-self: center;
 }
@@ -293,14 +261,15 @@ body {
     gap: 14px;
     width: 100%;
     flex-shrink: 0;
-    padding: 15px 18px;
+    padding: 12px 16px;
 
     border: 1px solid rgba(180, 130, 130, 0.3);
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.5);
 
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.3rem;
+    line-height: 1.2;
     color: #79545a;
     cursor: pointer;
 }
@@ -314,7 +283,6 @@ body {
     appearance: none;
     -webkit-appearance: none;
     flex-shrink: 0;
-
     width: 19px;
     height: 19px;
     border: 1px solid #bd818b;
@@ -338,9 +306,113 @@ body {
 }
 
 .quiz-message {
+    width: 100%;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 8px;
     font-family: 'Great Vibes', cursive;
     font-size: 2rem;
     color: #bd818b;
 }
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+    html {
+        scroll-snap-type: y proximity;
+        scroll-behavior: auto;
+    }
+
+    .slide {
+        padding: 24px 18px;
+    }
+
+    .splash::before {
+        inset: 18px;
+    }
+
+    .splash h1 {
+        font-size: clamp(4rem, 16vw, 6rem);
+    }
+
+    .splash h2 {
+        font-size: clamp(5rem, 20vw, 7rem);
+    }
+
+    .splash p {
+        font-size: 0.6rem;
+        letter-spacing: 3px;
+    }
+
+    .memory {
+        gap: 20px;
+    }
+
+    .memory img {
+        max-width: 92vw;
+        max-height: 52vh;
+        max-height: 52svh;
+    }
+
+    .caption .date {
+        font-size: 0.62rem;
+        letter-spacing: 3px;
+    }
+
+    .caption h2 {
+        font-size: 3.3rem;
+    }
+
+    .caption p {
+        font-size: 1.2rem;
+    }
+
+    /* Quiz slide */
+
+    .memory:has(.memory-quiz) {
+        padding: 22px 18px 35px;
+        gap: 10px;
+    }
+
+    .memory:has(.memory-quiz) img {
+        max-height: 25svh;
+        max-width: 90vw;
+    }
+
+    .memory-quiz {
+        width: 100%;
+        gap: 8px;
+        margin-top: 5px;
+    }
+
+    .memory-quiz label {
+        font-size: 1.12rem;
+        padding: 10px 12px;
+        gap: 11px;
+    }
+
+    .memory-quiz input {
+        width: 18px;
+        height: 18px;
+    }
+
+    .quiz-message {
+        font-size: 1.8rem;
+    }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .splash h1,
+    .splash h2,
+    .splash p,
+    .splash::after,
+    .scroll-hint {
+        animation: none;
+    }
+}
+
